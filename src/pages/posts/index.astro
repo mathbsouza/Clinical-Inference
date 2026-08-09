@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import PostExplorer from "../../components/PostExplorer";
+import { getPublishedPosts, toPostSummary } from "../../lib/posts";
+import { SITE, withBase } from "../../lib/site";
+
+const posts = await getPublishedPosts();
+const postSummaries = posts.map((post) =>
+  toPostSummary(
+    post,
+    withBase(post.data.cover ?? "/images/posts/default-cover.png"),
+    withBase(`/posts/${post.id}`)
+  )
+);
+---
+
+<BaseLayout title="Posts" description={`All posts from ${SITE.name}.`}>
+  <section class="mx-auto max-w-6xl px-4 pt-14 sm:px-6 sm:pt-20 lg:px-8">
+    <div class="max-w-3xl space-y-4">
+      <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#ff7a1a]">Archive</p>
+      <h1 class="text-5xl font-semibold leading-none text-[#fffaf4] sm:text-7xl">Posts</h1>
+      <p class="text-base leading-8 text-[#c5bdb5] sm:text-lg">
+        Essays and notes ordered by publication date, with tags and search for quick scanning.
+      </p>
+    </div>
+  </section>
+
+  <PostExplorer client:load posts={postSummaries} />
+</BaseLayout>

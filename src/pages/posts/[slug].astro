@@ -1,0 +1,106 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../components/BaseLayout.astro";
+import PostMeta from "../../components/PostMeta.astro";
+import SubscribeCTA from "../../components/SubscribeCTA.astro";
+import TagList from "../../components/TagList.astro";
+import { formatDate, getPublishedPosts, getReadingTime } from "../../lib/posts";
+import { withBase } from "../../lib/site";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+
+  return posts
+    .filter((post) => post.data.published)
+    .map((post) => ({
+      params: { slug: post.id },
+      props: { post }
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const posts = await getPublishedPosts();
+const currentIndex = posts.findIndex((entry) => entry.id === post.id);
+const previousPost = posts[currentIndex + 1];
+const nextPost = posts[currentIndex - 1];
+const cover = withBase(post.data.cover ?? "/images/posts/default-cover.png");
+const formattedDate = formatDate(post.data.date);
+const dateTime = post.data.date.toISOString();
+const readingTime = getReadingTime(post.body);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.subtitle ?? post.data.excerpt}
+  image={post.data.cover ?? "/images/posts/default-cover.png"}
+>
+  <article>
+    <header class="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+      <div class="space-y-6">
+        <PostMeta author={post.data.author} dateTime={dateTime} displayDate={formattedDate} readingTime={readingTime} />
+        <div class="space-y-4">
+          <h1 class="text-4xl font-semibold leading-[1.02] text-[#fffaf4] sm:text-6xl">
+            {post.data.title}
+          </h1>
+          {
+            post.data.subtitle && (
+              <p class="max-w-3xl text-lg leading-8 text-[#c5bdb5] sm:text-xl">{post.data.subtitle}</p>
+            )
+          }
+        </div>
+        <TagList tags={post.data.tags} />
+      </div>
+    </header>
+
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <img
+        src={cover}
+        alt=""
+        class="aspect-[16/9] w-full rounded-lg border border-[#2a2119] bg-[#0d0d0d] object-cover"
+        loading="eager"
+      />
+    </div>
+
+    <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <div class="article-content">
+        <Content />
+      </div>
+
+      {
+        post.data.importedFrom && (
+          <p class="mt-10 border-t border-[#2a2119] pt-6 text-sm text-[#a7a19a]">
+            Imported from{" "}
+            <a class="text-[#ff7a1a] underline underline-offset-4" href={post.data.importedFrom}>
+              the original Substack post
+            </a>
+            .
+          </p>
+        )
+      }
+    </div>
+  </article>
+
+  <nav class="mx-auto grid max-w-4xl gap-4 px-4 pb-14 sm:px-6 md:grid-cols-2 lg:px-8" aria-label="Post navigation">
+    {
+      previousPost ? (
+        <a class="rounded-lg border border-[#2a2119] bg-[#0d0d0d] p-5 transition hover:border-[#ff7a1a]" href={withBase(`/posts/${previousPost.id}`)}>
+          <span class="text-xs font-semibold uppercase tracking-[0.2em] text-[#ff7a1a]">Previous</span>
+          <span class="mt-2 block text-lg font-semibold text-[#fffaf4]">{previousPost.data.title}</span>
+        </a>
+      ) : (
+        <span></span>
+      )
+    }
+    {
+      nextPost && (
+        <a class="rounded-lg border border-[#2a2119] bg-[#0d0d0d] p-5 text-right transition hover:border-[#ff7a1a]" href={withBase(`/posts/${nextPost.id}`)}>
+          <span class="text-xs font-semibold uppercase tracking-[0.2em] text-[#ff7a1a]">Next</span>
+          <span class="mt-2 block text-lg font-semibold text-[#fffaf4]">{nextPost.data.title}</span>
+        </a>
+      )
+    }
+  </nav>
+
+  <SubscribeCTA />
+</BaseLayout>

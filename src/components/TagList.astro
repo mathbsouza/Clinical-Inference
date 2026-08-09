@@ -1,0 +1,19 @@
+---
+type Props = {
+  tags: string[];
+};
+
+const { tags } = Astro.props;
+---
+
+{
+  tags.length > 0 && (
+    <ul class="flex flex-wrap gap-2" aria-label="Post tags">
+      {tags.map((tag) => (
+        <li class="rounded-full border border-[#2a2119] bg-[#15120f] px-3 py-1 text-xs font-medium text-[#ffb36f]">
+          {tag}
+        </li>
+      ))}
+    </ul>
+  )
+}

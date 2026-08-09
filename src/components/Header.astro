@@ -1,0 +1,52 @@
+---
+import { SITE, withBase } from "../lib/site";
+
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/posts", label: "Posts" },
+  { href: "/sobre", label: "About" }
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-[#2a2119]/80 bg-[#050505]/82 backdrop-blur-xl">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+    <a href={withBase("/")} class="flex min-w-0 items-center gap-3" aria-label={`${SITE.name} home`}>
+      <img
+        src={withBase("/images/brand/logo.png")}
+        alt=""
+        class="h-9 w-9 rounded-md border border-[#2a2119] bg-[#0d0d0d] object-cover"
+        loading="eager"
+      />
+      <span class="truncate text-sm font-semibold uppercase tracking-[0.18em] text-[#f8f4ef] sm:text-base">
+        {SITE.name}
+      </span>
+    </a>
+
+    <div class="flex items-center gap-1 rounded-full border border-[#2a2119] bg-[#0d0d0d]/80 p-1">
+      {
+        links.map((link) => {
+          const isActive =
+            link.href === "/"
+              ? currentPath === withBase("/")
+              : currentPath.startsWith(withBase(link.href));
+
+          return (
+            <a
+              href={withBase(link.href)}
+              class:list={[
+                "rounded-full px-3 py-1.5 text-xs font-medium transition sm:px-4 sm:text-sm",
+                isActive
+                  ? "bg-[#ff7a1a] text-black"
+                  : "text-[#a7a19a] hover:text-[#f8f4ef]"
+              ]}
+            >
+              {link.label}
+            </a>
+          );
+        })
+      }
+    </div>
+  </nav>
+</header>

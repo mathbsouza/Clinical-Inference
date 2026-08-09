@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import SubscribeCTA from "../components/SubscribeCTA.astro";
+import { SITE } from "../lib/site";
+---
+
+<BaseLayout title="About" description={`About ${SITE.name}.`}>
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="space-y-6">
+      <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#ff7a1a]">About</p>
+      <h1 class="text-5xl font-semibold leading-none text-[#fffaf4] sm:text-7xl">{SITE.name}</h1>
+      <div class="article-content">
+        <p>
+          Clinical Inference is a minimal publication for essays, technical notes, and experiments in
+          clinical reasoning, writing systems, and software-mediated communication.
+        </p>
+        <p>
+          The site is built as a static archive: fast pages, durable Markdown files, and a clean reading
+          experience that works well on mobile and desktop.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <SubscribeCTA />
+</BaseLayout>

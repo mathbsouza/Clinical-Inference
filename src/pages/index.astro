@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import SubscribeCTA from "../components/SubscribeCTA.astro";
+import { getPublishedPosts } from "../lib/posts";
+import { SITE, withBase } from "../lib/site";
+
+const posts = await getPublishedPosts();
+const featuredPost = posts[0];
+const recentPosts = posts.slice(1, 4);
+---
+
+<BaseLayout title={SITE.name} description={SITE.description}>
+  <section class="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:px-8">
+    <div class="space-y-8">
+      <div class="space-y-5">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#ff7a1a]">Clinical Inference</p>
+        <h1 class="max-w-4xl text-5xl font-semibold leading-[0.95] text-[#fffaf4] sm:text-7xl">
+          Evidence, philosophy, and clinical practice.
+        </h1>
+        <p class="max-w-2xl text-base leading-8 text-[#c5bdb5] sm:text-lg">
+          Notes on Evidence-Based Medicine, philosophy of evidence, and the decisions clinicians
+          have to make at the bedside.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a
+          href={withBase("/posts")}
+          class="rounded-full bg-[#ff7a1a] px-5 py-3 text-sm font-semibold text-black transition hover:bg-[#ffb36f]"
+        >
+          Browse posts
+        </a>
+        <a
+          href={withBase("/sobre")}
+          class="rounded-full border border-[#2a2119] px-5 py-3 text-sm font-semibold text-[#f8f4ef] transition hover:border-[#ff7a1a]"
+        >
+          About
+        </a>
+      </div>
+    </div>
+
+    <div class="overflow-hidden rounded-lg border border-[#2a2119] bg-[#0d0d0d]">
+      <img
+        src={withBase("/images/brand/og-image.png")}
+        alt=""
+        class="aspect-[16/10] h-full w-full object-cover"
+        loading="eager"
+      />
+    </div>
+  </section>
+
+  {
+    featuredPost && (
+      <section class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between gap-4 border-b border-[#2a2119] pb-4">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.22em] text-[#ff7a1a]">Latest</p>
+            <h2 class="mt-2 text-3xl font-semibold text-[#fffaf4]">Featured post</h2>
+          </div>
+          <a href={withBase("/posts")} class="hidden text-sm font-semibold text-[#ff7a1a] transition hover:text-[#ffb36f] sm:inline">
+            View all
+          </a>
+        </div>
+        <PostCard post={featuredPost} featured />
+      </section>
+    )
+  }
+
+  {
+    recentPosts.length > 0 && (
+      <section class="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="mb-2 flex items-end justify-between gap-4">
+          <h2 class="text-2xl font-semibold text-[#fffaf4]">Recent posts</h2>
+          <a href={withBase("/posts")} class="text-sm font-semibold text-[#ff7a1a] transition hover:text-[#ffb36f]">
+            View all
+          </a>
+        </div>
+        {recentPosts.map((post) => <PostCard post={post} />)}
+      </section>
+    )
+  }
+
+  <SubscribeCTA />
+</BaseLayout>

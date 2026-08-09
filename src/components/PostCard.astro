@@ -1,0 +1,61 @@
+---
+import type { PostEntry } from "../lib/posts";
+import { formatDate, getExcerpt, getReadingTime } from "../lib/posts";
+import { withBase } from "../lib/site";
+import PostMeta from "./PostMeta.astro";
+import TagList from "./TagList.astro";
+
+type Props = {
+  post: PostEntry;
+  featured?: boolean;
+};
+
+const { post, featured = false } = Astro.props;
+const href = withBase(`/posts/${post.id}`);
+const cover = withBase(post.data.cover ?? "/images/posts/default-cover.png");
+const formattedDate = formatDate(post.data.date);
+const dateTime = post.data.date.toISOString();
+const readingTime = getReadingTime(post.body);
+const excerpt = getExcerpt(post, featured ? 260 : 180);
+---
+
+<article
+  class:list={[
+    "group grid gap-5 border-[#2a2119] transition",
+    featured
+      ? "border-y py-8 md:grid-cols-[1.05fr_0.95fr] md:items-center"
+      : "border-b py-6 md:grid-cols-[1fr_14rem] md:items-center"
+  ]}
+>
+  <div class={featured ? "space-y-5" : "space-y-3"}>
+    <PostMeta author={post.data.author} dateTime={dateTime} displayDate={formattedDate} readingTime={readingTime} />
+    <div class="space-y-2">
+      <h2 class:list={[featured ? "text-3xl sm:text-5xl" : "text-2xl sm:text-3xl", "font-semibold leading-tight text-[#fffaf4]"]}>
+        <a href={href} class="decoration-[#ff7a1a]/40 underline-offset-8 transition group-hover:text-[#ffb36f] group-hover:underline">
+          {post.data.title}
+        </a>
+      </h2>
+      {
+        post.data.subtitle && (
+          <p class:list={[featured ? "text-lg" : "text-base", "max-w-2xl text-[#c5bdb5]"]}>
+            {post.data.subtitle}
+          </p>
+        )
+      }
+    </div>
+    <p class="max-w-2xl text-sm leading-7 text-[#a7a19a] sm:text-base">{excerpt}</p>
+    <TagList tags={post.data.tags} />
+  </div>
+
+  <a href={href} class="block overflow-hidden rounded-lg border border-[#2a2119] bg-[#0d0d0d]">
+    <img
+      src={cover}
+      alt=""
+      class:list={[
+        "h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-100",
+        featured ? "aspect-[16/10]" : "aspect-[16/9]"
+      ]}
+      loading={featured ? "eager" : "lazy"}
+    />
+  </a>
+</article>

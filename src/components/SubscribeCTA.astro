@@ -1,0 +1,21 @@
+---
+import { SITE } from "../lib/site";
+---
+
+<section class="border-y border-[#2a2119] bg-[#0d0d0d]/70">
+  <div class="mx-auto grid max-w-6xl gap-5 px-4 py-8 sm:px-6 md:grid-cols-[1fr_auto] md:items-center lg:px-8">
+    <div class="space-y-2">
+      <p class="text-xs font-semibold uppercase tracking-[0.22em] text-[#ff7a1a]">Clinical Inference</p>
+      <h2 class="text-2xl font-semibold text-[#fffaf4]">New posts by email.</h2>
+      <p class="max-w-2xl text-sm leading-6 text-[#a7a19a]">
+        Evidence-Based Medicine, philosophy, and clinical practice. No feed algorithm required.
+      </p>
+    </div>
+    <a
+      href={SITE.newsletterUrl}
+      class="inline-flex items-center justify-center rounded-full bg-[#ff7a1a] px-5 py-3 text-sm font-semibold text-black transition hover:bg-[#ffb36f]"
+    >
+      Subscribe by email
+    </a>
+  </div>
+</section>

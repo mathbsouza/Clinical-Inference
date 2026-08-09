@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --background: #050505;
+  --surface: #0d0d0d;
+  --surface-soft: #15120f;
+  --border: #2a2119;
+  --text: #f8f4ef;
+  --muted: #a7a19a;
+  --orange: #ff7a1a;
+  --orange-soft: #f97316;
+  --orange-muted: #7a3414;
+}
+
+html {
+  background: var(--background);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 122, 26, 0.12), transparent 28rem),
+    linear-gradient(180deg, #050505 0%, #0a0806 52%, #050505 100%);
+  color: var(--text);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  letter-spacing: 0;
+}
+
+::selection {
+  background: rgba(255, 122, 26, 0.32);
+  color: white;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+.article-content {
+  color: #e7e0d9;
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}
+
+.article-content > * + * {
+  margin-top: 1.35rem;
+}
+
+.article-content h2,
+.article-content h3 {
+  color: #fffaf4;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 2.25rem;
+}
+
+.article-content h2 {
+  font-size: clamp(1.55rem, 2.4vw, 2.2rem);
+}
+
+.article-content h3 {
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+}
+
+.article-content p {
+  margin-bottom: 0;
+}
+
+.article-content a {
+  color: var(--orange);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 122, 26, 0.35);
+  text-underline-offset: 0.18em;
+}
+
+.article-content blockquote {
+  border-left: 3px solid var(--orange);
+  color: #f5ede5;
+  margin: 2rem 0;
+  padding-left: 1.25rem;
+}
+
+.article-content sup {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+.article-content sup a {
+  text-decoration: none;
+}
+
+.article-content .footnotes {
+  border-top: 1px solid var(--border);
+  color: #b8afa6;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+}
+
+.article-content .footnotes ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+
+.article-content .footnotes li {
+  padding-left: 0.25rem;
+}
+
+.article-content .footnotes li + li {
+  margin-top: 0.9rem;
+}
+
+.article-content .footnotes li::marker {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+.article-content .data-footnote-backref {
+  color: var(--orange);
+  margin-left: 0.25rem;
+  text-decoration: none;
+}
+
+.article-content code {
+  background: rgba(255, 122, 26, 0.11);
+  border: 1px solid rgba(255, 122, 26, 0.22);
+  border-radius: 0.35rem;
+  color: #ffb36f;
+  font-size: 0.92em;
+  padding: 0.16rem 0.38rem;
+}
+
+.article-content pre {
+  background: #0c0c0c;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.article-content pre code {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  padding: 0;
+}
+
+.article-content hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 2.25rem 0;
+}

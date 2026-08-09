@@ -1,0 +1,25 @@
+{
+  "name": "clinical-inference-blog",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 XDG_CONFIG_HOME=.astro-config ASTRO_DEV_BACKGROUND=0 astro dev --ignore-lock",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 XDG_CONFIG_HOME=.astro-config astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 XDG_CONFIG_HOME=.astro-config ASTRO_PREVIEW_BACKGROUND=0 astro preview",
+    "astro": "ASTRO_TELEMETRY_DISABLED=1 XDG_CONFIG_HOME=.astro-config astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^7.0.5",
+    "@astrojs/react": "^6.0.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.2.0",
+    "lucide-react": "^1.30.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}

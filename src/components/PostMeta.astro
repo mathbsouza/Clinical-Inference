@@ -1,0 +1,18 @@
+---
+type Props = {
+  author: string;
+  dateTime: string;
+  displayDate: string;
+  readingTime: number;
+};
+
+const { author, dateTime, displayDate, readingTime } = Astro.props;
+---
+
+<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[#a7a19a]">
+  <span>{author}</span>
+  <span aria-hidden="true" class="text-[#ff7a1a]">/</span>
+  <time datetime={dateTime}>{displayDate}</time>
+  <span aria-hidden="true" class="text-[#ff7a1a]">/</span>
+  <span>{readingTime} min read</span>
+</div>

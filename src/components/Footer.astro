@@ -1,0 +1,13 @@
+---
+import { SITE, withBase } from "../lib/site";
+---
+
+<footer class="border-t border-[#2a2119] bg-[#050505]">
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm text-[#a7a19a] sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+    <p>&copy; {new Date().getFullYear()} {SITE.name}. Built for careful writing.</p>
+    <div class="flex gap-4">
+      <a class="transition hover:text-[#ff7a1a]" href={withBase("/posts")}>Posts</a>
+      <a class="transition hover:text-[#ff7a1a]" href={withBase("/sobre")}>About</a>
+    </div>
+  </div>
+</footer>
