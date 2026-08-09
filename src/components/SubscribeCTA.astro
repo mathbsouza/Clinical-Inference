@@ -1,21 +1,46 @@
 ---
 import { SITE } from "../lib/site";
+
+const { newsletter } = SITE;
 ---
 
 <section class="border-y border-[#2a2119] bg-[#0d0d0d]/70">
-  <div class="mx-auto grid max-w-6xl gap-5 px-4 py-8 sm:px-6 md:grid-cols-[1fr_auto] md:items-center lg:px-8">
+  <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-[minmax(0,1fr)_minmax(18rem,26rem)] md:items-center lg:px-8">
     <div class="space-y-2">
       <p class="text-xs font-semibold uppercase tracking-[0.22em] text-[#ff7a1a]">Clinical Inference</p>
-      <h2 class="text-2xl font-semibold text-[#fffaf4]">New posts by email.</h2>
+      <h2 class="text-2xl font-semibold text-[#fffaf4]">New posts by email</h2>
       <p class="max-w-2xl text-sm leading-6 text-[#a7a19a]">
-        Evidence-Based Medicine, philosophy, and clinical practice. No feed algorithm required.
+        Essays on Evidence-Based Medicine, philosophy, and clinical practice.
       </p>
     </div>
-    <a
-      href={SITE.newsletterUrl}
-      class="inline-flex items-center justify-center rounded-full bg-[#ff7a1a] px-5 py-3 text-sm font-semibold text-black transition hover:bg-[#ffb36f]"
+    <form
+      action={newsletter.action}
+      method="post"
+      target="_blank"
+      class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]"
     >
-      Subscribe by email
-    </a>
+      <label class="sr-only" for="newsletter-email">Email address</label>
+      <input
+        id="newsletter-email"
+        name="email"
+        type="email"
+        inputmode="email"
+        autocomplete="email"
+        placeholder="you@example.com"
+        required
+        class="min-h-12 min-w-0 rounded-full border border-[#2a2119] bg-[#050505] px-4 text-sm text-[#fffaf4] outline-none transition placeholder:text-[#6f6962] focus:border-[#ff7a1a]"
+      />
+      <input type="hidden" name="embed" value="1" />
+      <input type="hidden" name="tag" value={newsletter.tag} />
+      <button
+        type="submit"
+        class="min-h-12 rounded-full bg-[#ff7a1a] px-5 text-sm font-semibold text-black transition hover:bg-[#ffb36f]"
+      >
+        Subscribe
+      </button>
+      <p class="text-xs leading-5 text-[#7f766e] sm:col-span-2">
+        Delivered through {newsletter.provider}. Unsubscribe anytime.
+      </p>
+    </form>
   </div>
 </section>

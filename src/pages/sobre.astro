@@ -1,27 +1,31 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
-import SubscribeCTA from "../components/SubscribeCTA.astro";
 import { SITE } from "../lib/site";
 ---
 
 <BaseLayout title="About" description={`About ${SITE.name}.`}>
-  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-    <div class="space-y-6">
-      <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#ff7a1a]">About</p>
-      <h1 class="text-5xl font-semibold leading-none text-[#fffaf4] sm:text-7xl">{SITE.name}</h1>
-      <div class="article-content">
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-start">
+      <div class="space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#ff7a1a]">About</p>
+        <h1 class="text-4xl font-semibold leading-[1.02] text-[#fffaf4] sm:text-6xl">{SITE.name}</h1>
+      </div>
+
+      <div class="article-content max-w-3xl">
         <p>
-          Clinical Inference is about Evidence-Based Medicine, philosophy, and clinical practice:
-          how evidence is produced, how it justifies medical decisions, and what clinicians should do
-          when the literature does not speak with one voice.
+          Clinical Inference is a publication about Evidence-Based Medicine, philosophy of evidence,
+          and clinical practice.
         </p>
         <p>
-          The essays move between trials, guidelines, mechanisms, epistemology, and the everyday
-          problem of acting under uncertainty at the bedside.
+          The central question is how medical decisions are justified: by trials, guidelines,
+          mechanisms, expert judgment, patient context, or some combination of them.
+        </p>
+        <p>
+          The essays are written for clinicians, researchers, and readers interested in what follows
+          after evidence is produced: how it is interpreted, transmitted, trusted, and used at the
+          bedside.
         </p>
       </div>
     </div>
   </section>
-
-  <SubscribeCTA />
 </BaseLayout>

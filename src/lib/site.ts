@@ -1,9 +1,17 @@
+const NEWSLETTER_USERNAME = "clinicalinference";
+
 export const SITE = {
   name: "Clinical Inference",
   description:
     "Essays on evidence-based medicine, philosophy, and clinical practice.",
   author: "Matheus",
-  newsletterUrl: "mailto:matheus@example.com?subject=Subscribe%20to%20Clinical%20Inference",
+  rssPath: "/rss.xml",
+  newsletter: {
+    provider: "Buttondown",
+    username: NEWSLETTER_USERNAME,
+    action: `https://buttondown.com/api/emails/embed-subscribe/${NEWSLETTER_USERNAME}`,
+    tag: "clinical-inference-site"
+  },
   defaultImage: "/images/brand/og-image.png"
 };
 
