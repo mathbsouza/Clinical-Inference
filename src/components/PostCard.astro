@@ -1,6 +1,6 @@
 ---
 import type { PostEntry } from "../lib/posts";
-import { formatDate, getExcerpt, getReadingTime } from "../lib/posts";
+import { formatDate, getExcerpt, getPostCover, getPostPath, getReadingTime } from "../lib/posts";
 import { withBase } from "../lib/site";
 import PostMeta from "./PostMeta.astro";
 import TagList from "./TagList.astro";
@@ -11,8 +11,8 @@ type Props = {
 };
 
 const { post, featured = false } = Astro.props;
-const href = withBase(`/posts/${post.id}`);
-const cover = withBase(post.data.cover ?? "/images/posts/default-cover.png");
+const href = withBase(getPostPath(post));
+const cover = withBase(getPostCover(post));
 const formattedDate = formatDate(post.data.date);
 const dateTime = post.data.date.toISOString();
 const readingTime = getReadingTime(post.body);

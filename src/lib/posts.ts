@@ -2,6 +2,13 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 export type PostEntry = CollectionEntry<"posts">;
 
+const DEFAULT_POST_COVER = "/images/posts/default-cover.png";
+const postImageAssets = import.meta.glob<string>("../content/posts/**/*.{png,jpg,jpeg,webp,avif,gif}", {
+  eager: true,
+  import: "default",
+  query: "?url"
+});
+
 export type PostSummary = {
   slug: string;
   url: string;
@@ -22,6 +29,35 @@ export async function getPublishedPosts() {
   return posts
     .filter((post) => post.data.published)
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+}
+
+export function getPostSlug(post: PostEntry) {
+  return post.id.replace(/\/index$/, "");
+}
+
+export function getPostPath(post: PostEntry) {
+  return `/posts/${getPostSlug(post)}`;
+}
+
+export function getPostCover(post: PostEntry) {
+  const cover = post.data.cover;
+
+  if (!cover) {
+    return DEFAULT_POST_COVER;
+  }
+
+  if (cover.startsWith("/") || cover.startsWith("http://") || cover.startsWith("https://")) {
+    return cover;
+  }
+
+  const postFilePath = post.filePath ?? "";
+  const postDirectory = postFilePath
+    .replace(/^src\/content\/posts\//, "")
+    .replace(/\/[^/]+$/, "");
+  const coverPath = cover.replace(/^\.\//, "");
+  const assetKey = `../content/posts/${postDirectory}/${coverPath}`;
+
+  return postImageAssets[assetKey] ?? DEFAULT_POST_COVER;
 }
 
 export function formatDate(date: Date) {
@@ -58,7 +94,7 @@ export function getExcerpt(post: PostEntry, maxLength = 180) {
 
 export function toPostSummary(post: PostEntry, cover: string, url: string): PostSummary {
   return {
-    slug: post.id,
+    slug: getPostSlug(post),
     url,
     title: post.data.title,
     subtitle: post.data.subtitle,

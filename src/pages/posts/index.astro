@@ -1,15 +1,15 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
 import PostExplorer from "../../components/PostExplorer";
-import { getPublishedPosts, toPostSummary } from "../../lib/posts";
+import { getPostCover, getPostPath, getPublishedPosts, toPostSummary } from "../../lib/posts";
 import { SITE, withBase } from "../../lib/site";
 
 const posts = await getPublishedPosts();
 const postSummaries = posts.map((post) =>
   toPostSummary(
     post,
-    withBase(post.data.cover ?? "/images/posts/default-cover.png"),
-    withBase(`/posts/${post.id}`)
+    withBase(getPostCover(post)),
+    withBase(getPostPath(post))
   )
 );
 ---

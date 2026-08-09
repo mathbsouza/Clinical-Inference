@@ -4,7 +4,7 @@ import BaseLayout from "../../components/BaseLayout.astro";
 import PostMeta from "../../components/PostMeta.astro";
 import SubscribeCTA from "../../components/SubscribeCTA.astro";
 import TagList from "../../components/TagList.astro";
-import { formatDate, getPublishedPosts, getReadingTime } from "../../lib/posts";
+import { formatDate, getPostCover, getPostPath, getPostSlug, getPublishedPosts, getReadingTime } from "../../lib/posts";
 import { withBase } from "../../lib/site";
 
 export async function getStaticPaths() {
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
   return posts
     .filter((post) => post.data.published)
     .map((post) => ({
-      params: { slug: post.id },
+      params: { slug: getPostSlug(post) },
       props: { post }
     }));
 }
@@ -24,7 +24,7 @@ const posts = await getPublishedPosts();
 const currentIndex = posts.findIndex((entry) => entry.id === post.id);
 const previousPost = posts[currentIndex + 1];
 const nextPost = posts[currentIndex - 1];
-const cover = withBase(post.data.cover ?? "/images/posts/default-cover.png");
+const cover = withBase(getPostCover(post));
 const formattedDate = formatDate(post.data.date);
 const dateTime = post.data.date.toISOString();
 const readingTime = getReadingTime(post.body);
@@ -33,7 +33,7 @@ const readingTime = getReadingTime(post.body);
 <BaseLayout
   title={post.data.title}
   description={post.data.subtitle ?? post.data.excerpt}
-  image={post.data.cover ?? "/images/posts/default-cover.png"}
+  image={getPostCover(post)}
 >
   <article>
     <header class="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
@@ -72,7 +72,7 @@ const readingTime = getReadingTime(post.body);
   <nav class="mx-auto grid max-w-4xl gap-4 px-4 pb-14 sm:px-6 md:grid-cols-2 lg:px-8" aria-label="Post navigation">
     {
       previousPost ? (
-        <a class="rounded-lg border border-[#2a2119] bg-[#0d0d0d] p-5 transition hover:border-[#ff7a1a]" href={withBase(`/posts/${previousPost.id}`)}>
+        <a class="rounded-lg border border-[#2a2119] bg-[#0d0d0d] p-5 transition hover:border-[#ff7a1a]" href={withBase(getPostPath(previousPost))}>
           <span class="text-xs font-semibold uppercase tracking-[0.2em] text-[#ff7a1a]">Previous</span>
           <span class="mt-2 block text-lg font-semibold text-[#fffaf4]">{previousPost.data.title}</span>
         </a>
@@ -82,7 +82,7 @@ const readingTime = getReadingTime(post.body);
     }
     {
       nextPost && (
-        <a class="rounded-lg border border-[#2a2119] bg-[#0d0d0d] p-5 text-right transition hover:border-[#ff7a1a]" href={withBase(`/posts/${nextPost.id}`)}>
+        <a class="rounded-lg border border-[#2a2119] bg-[#0d0d0d] p-5 text-right transition hover:border-[#ff7a1a]" href={withBase(getPostPath(nextPost))}>
           <span class="text-xs font-semibold uppercase tracking-[0.2em] text-[#ff7a1a]">Next</span>
           <span class="mt-2 block text-lg font-semibold text-[#fffaf4]">{nextPost.data.title}</span>
         </a>

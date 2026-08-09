@@ -1,6 +1,6 @@
 import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
-import { getPublishedPosts, getExcerpt } from "../lib/posts";
+import { getPublishedPosts, getExcerpt, getPostPath } from "../lib/posts";
 import { SITE, withBase } from "../lib/site";
 
 export async function GET(context: APIContext) {
@@ -15,7 +15,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       description: getExcerpt(post),
       pubDate: post.data.date,
-      link: new URL(withBase(`/posts/${post.id}/`), context.site).toString()
+      link: new URL(withBase(`${getPostPath(post)}/`), context.site).toString()
     })),
     customData: "<language>en-us</language>"
   });
