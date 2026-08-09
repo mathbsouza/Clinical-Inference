@@ -1,4 +1,4 @@
-const NEWSLETTER_USERNAME = "clinicalinference";
+const NEWSLETTER_USERNAME = "bento_de_souza";
 
 export const SITE = {
   name: "Clinical Inference",
