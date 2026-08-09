@@ -11,11 +11,22 @@ const recentPosts = posts.slice(1, 4);
 ---
 
 <BaseLayout title={SITE.name} description={SITE.description}>
-  <section class="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:px-8">
-    <div class="space-y-8">
+  <section class="relative isolate overflow-hidden border-b border-[#2a2119]">
+    <img
+      src={withBase("/images/brand/hero-background.png")}
+      alt=""
+      class="absolute inset-0 -z-30 h-full w-full object-cover"
+      loading="eager"
+    />
+    <div class="absolute inset-0 -z-20 bg-[#050505]/35"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#050505] via-[#050505]/85 to-[#050505]/25"></div>
+    <div class="absolute inset-x-0 bottom-0 -z-10 h-36 bg-gradient-to-t from-[#050505] to-transparent"></div>
+
+    <div class="mx-auto flex min-h-[72svh] max-w-6xl items-center px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+      <div class="max-w-4xl space-y-8">
       <div class="space-y-5">
         <p class="text-xs font-semibold uppercase tracking-[0.24em] text-[#ff7a1a]">Clinical Inference</p>
-        <h1 class="max-w-4xl text-5xl font-semibold leading-[0.95] text-[#fffaf4] sm:text-7xl">
+        <h1 class="text-4xl font-semibold leading-[0.98] text-[#fffaf4] sm:text-6xl lg:text-7xl">
           Evidence, philosophy, and clinical practice.
         </h1>
         <p class="max-w-2xl text-base leading-8 text-[#c5bdb5] sm:text-lg">
@@ -38,14 +49,6 @@ const recentPosts = posts.slice(1, 4);
         </a>
       </div>
     </div>
-
-    <div class="overflow-hidden rounded-lg border border-[#2a2119] bg-[#0d0d0d]">
-      <img
-        src={withBase("/images/brand/og-image.png")}
-        alt=""
-        class="aspect-[16/10] h-full w-full object-cover"
-        loading="eager"
-      />
     </div>
   </section>
 
