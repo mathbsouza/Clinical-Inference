@@ -66,18 +66,6 @@ const readingTime = getReadingTime(post.body);
       <div class="article-content">
         <Content />
       </div>
-
-      {
-        post.data.importedFrom && (
-          <p class="mt-10 border-t border-[#2a2119] pt-6 text-sm text-[#a7a19a]">
-            Imported from{" "}
-            <a class="text-[#ff7a1a] underline underline-offset-4" href={post.data.importedFrom}>
-              the original Substack post
-            </a>
-            .
-          </p>
-        )
-      }
     </div>
   </article>
 
