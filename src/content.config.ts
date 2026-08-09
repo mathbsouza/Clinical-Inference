@@ -21,7 +21,7 @@ const posts = defineCollection({
     tags: z.array(z.string()).default([]),
     published: z.boolean().default(true),
     excerpt: z.string().optional(),
-    importedFrom: z.string().url().optional()
+    importedFrom: z.string().optional()
   })
 });
 
