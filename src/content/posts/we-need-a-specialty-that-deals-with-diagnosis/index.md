@@ -4,7 +4,7 @@ subtitle: "Why do we think that every specialty has the capacity for diagnosis w
 date: "2026-08-09"
 author: "Matheus Bento de Souza"
 tags: ["diagnosis", "evidence-based medicine", "clinical reasoning"]
-published: true
+published: false
 excerpt: "Diagnosis is treated as something that permeates every specialty. But diagnostic error, evidence-based diagnosis, and the philosophy of diagnosis suggest a gap that medicine has not yet formalized."
 ---
 
