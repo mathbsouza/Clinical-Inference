@@ -74,6 +74,31 @@ img {
   margin-bottom: 0;
 }
 
+.article-content ul,
+.article-content ol {
+  padding-left: 1.5rem;
+}
+
+.article-content ul {
+  list-style: disc;
+}
+
+.article-content ol {
+  list-style: decimal;
+}
+
+.article-content li {
+  padding-left: 0.25rem;
+}
+
+.article-content li + li {
+  margin-top: 0.75rem;
+}
+
+.article-content li::marker {
+  color: var(--orange);
+}
+
 .article-content a {
   color: var(--orange);
   text-decoration: underline;
